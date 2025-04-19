@@ -176,7 +176,7 @@ end fixerMenu
 
 -- Main loop (close to exit)
 repeat
-	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from my-oblilyum " with prompt "Select Page:"
+	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from m-oblilyum " with prompt "Select Page:"
 	if page is false then exit repeat
 	if item 1 of page = "Helper" then helperMenu()
 	if item 1 of page = "Fixer" then fixerMenu()
