@@ -167,7 +167,7 @@ on fixerMenu()
 		set choice to choose from list ¬
 			{"System Requirements Check", "Fix Sudden Close", ¬
 			 "Fix Roblox Architecture", "Fix Port Binding", ¬
-			 "Password Prompt Fix", "Update Roblox", "Back"} ¬
+			 "Password Prompt Fix", "Fix Update Required - Roblox", "Back"} ¬
 			with title "Hydrogen Fixer" with prompt "Fixer Options:"
 		if choice is false or item 1 of choice = "Back" then return
 		set sel to item 1 of choice
@@ -176,7 +176,7 @@ on fixerMenu()
 		if sel = "Fix Roblox Architecture" then fixRobloxArch()
 		if sel = "Fix Port Binding" then fixPortBinding()
 		if sel = "Password Prompt Fix" then fixPasswordPrompt()
-if sel = "Update Roblox" then updateRoblox()
+if sel = "Fix Update Required - Roblox" then updateRoblox()
 	end repeat
 end fixerMenu
 
