@@ -1,5 +1,39 @@
 #!/bin/bash
-sudo -v || exit 1
+
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Banner & Loading
+clear
+echo -e "${CYAN}"
+echo "╔═══════════════════════════════════════════════════════════╗"
+echo "║                                                           ║"
+echo "       ██╗  ██╗██╗   ██╗██████╗ ██████╗  ██████╗  ██████╗ ███████╗███╗   ██╗"
+echo "       ██║  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗██╔═══██╗██╔════╝ ██╔════╝████╗  ██║"
+echo "       ███████║ ╚████╔╝ ██║  ██║██████╔╝██║   ██║██║  ███╗█████╗  ██╔██╗ ██║"
+echo "       ██╔══██║  ╚██╔╝  ██║  ██║██╔══██╗██║   ██║██║   ██║██╔══╝  ██║╚██╗██║"
+echo "       ██║  ██║   ██║   ██████╔╝██║  ██║╚██████╔╝╚██████╔╝███████╗██║ ╚████║"
+echo "       ╚═╝  ╚═╝   ╚═╝   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═══╝"
+echo "║                                                           ║"
+echo "╚═══════════════════════════════════════════════════════════╝"
+echo -e "${NC}"
+echo -ne "${CYAN}Loading"; for i in {1..3}; do sleep 0.4; echo -n "."; done; echo -e "${NC}"
+sleep 0.5
+
+# Request sudo
+echo -e "${CYAN}Checking for administrative privileges...${NC}"
+if sudo -v; then
+    echo -e "${GREEN}✓ Admin access confirmed${NC}"
+else
+    echo -e "${RED}✗ Admin access denied. Exiting.${NC}"
+    exit 1
+fi
+
+echo -e "${CYAN}Thank you for using Hydrogen Helper! If there's any issues please contact m-oblilyum(${NC}"
+
 
 osascript <<'APPLESCRIPT'
 use scripting additions
@@ -142,7 +176,7 @@ end fixerMenu
 
 -- Main loop (close to exit)
 repeat
-	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from my-oblilyum   & inspiration from 109dg" with prompt "Select Page:"
+	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from my-oblilyum " with prompt "Select Page:"
 	if page is false then exit repeat
 	if item 1 of page = "Helper" then helperMenu()
 	if item 1 of page = "Fixer" then fixerMenu()
