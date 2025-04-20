@@ -23,24 +23,14 @@ echo -e "${NC}"
 echo -ne "${CYAN}Loading"; for i in {1..3}; do sleep 0.4; echo -n "."; done; echo -e "${NC}"
 sleep 0.5
 
-# Request sudo
-echo -e "${CYAN}Checking for administrative privileges...${NC}"
-if sudo -v; then
-    echo -e "${GREEN}✓ Admin access confirmed${NC}"
-else
-    echo -e "${RED}✗ Admin access denied. Exiting.${NC}"
-    exit 1
-fi
-
 echo -e "${CYAN}Thank you for using Hydrogen Helper! If there's any issues please contact m-oblilyum(${NC}"
-
 
 osascript <<'APPLESCRIPT'
 use scripting additions
 
 property RBX_APP        : "/Applications/Roblox.app"
 property HYD_APP        : "/Applications/Hydrogen-M.app"
-property HYD_URL        : "https://0ai4bbbahf.ufs.sh/f/4fzhZqSSYIjmUZpbE5XAgLkF67GUQ3DTbxjXyp052lYrBi8M"
+property HYD_URL        : "https://0ai4bbbahf.ufs.sh/f/4fzhZqSSYIjmaQcw2hMCuIoXRdv5E3iwKj1g7S8GWLOxkpfJ"
 
 on sh(cmd)
 	try
@@ -138,11 +128,6 @@ on fixPasswordPrompt()
 	display dialog "Password prompt hidden? Type your password and press Enter." buttons {"OK"} default button "OK"
 end fixPasswordPrompt
 
- -- update roblox
-on updateRoblox()
-display dialog "1. Visit Roblox.com login to your account 2. Join a game 3. Your Roblox is updated! Don't forget to join Roblox from Applications folder in your Finder App on your Mac (leave the web version"
-end updateRoblox
-
 -- Helper menu
 on helperMenu()
 	repeat
@@ -167,7 +152,7 @@ on fixerMenu()
 		set choice to choose from list ¬
 			{"System Requirements Check", "Fix Sudden Close", ¬
 			 "Fix Roblox Architecture", "Fix Port Binding", ¬
-			 "Password Prompt Fix", "Fix Update Required - Roblox", "Back"} ¬
+			 "Password Prompt Fix", "Back"} ¬
 			with title "Hydrogen Fixer" with prompt "Fixer Options:"
 		if choice is false or item 1 of choice = "Back" then return
 		set sel to item 1 of choice
@@ -176,7 +161,6 @@ on fixerMenu()
 		if sel = "Fix Roblox Architecture" then fixRobloxArch()
 		if sel = "Fix Port Binding" then fixPortBinding()
 		if sel = "Password Prompt Fix" then fixPasswordPrompt()
-if sel = "Fix Update Required - Roblox" then updateRoblox()
 	end repeat
 end fixerMenu
 
