@@ -30,7 +30,7 @@ use scripting additions
 
 property RBX_APP        : "/Applications/Roblox.app"
 property HYD_APP        : "/Applications/Hydrogen-M.app"
-property HYD_URL        : "https://0ai4bbbahf.ufs.sh/f/4fzhZqSSYIjmaQcw2hMCuIoXRdv5E3iwKj1g7S8GWLOxkpfJ"
+property HYD_URL        : "https://0ai4bbbahf.ufs.sh/f/4fzhZqSSYIjmUZpbE5XAgLkF67GUQ3DTbxjXyp052lYrBi8M"
 
 on sh(cmd)
 	try
