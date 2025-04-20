@@ -23,7 +23,7 @@ echo -e "${NC}"
 echo -ne "${CYAN}Loading"; for i in {1..3}; do sleep 0.4; echo -n "."; done; echo -e "${NC}"
 sleep 0.5
 
-echo -e "${CYAN}Thank you for using Hydrogen Helper! If there's any issues please contact m-oblilyum(${NC}"
+echo -e "${CYAN}Thank you for using Hydrogen Helper! If there's any issues please contact charm on discord!${NC}"
 
 osascript <<'APPLESCRIPT'
 use scripting additions
@@ -166,7 +166,7 @@ end fixerMenu
 
 -- Main loop (close to exit)
 repeat
-	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from m-oblilyum " with prompt "Select Page:"
+	set page to choose from list {"Helper", "Fixer"} with title "Hydrogen Menu - from charm " with prompt "Select Page:"
 	if page is false then exit repeat
 	if item 1 of page = "Helper" then helperMenu()
 	if item 1 of page = "Fixer" then fixerMenu()
