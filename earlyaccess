@@ -4,11 +4,13 @@ URL="https://files.catbox.moe/etd6fc.dmg"
 DMG="App.dmg"
 
 echo "[*] Downloading $DMG..."
-curl -L -o "$DMG" "$URL"
+curl -L -o "$DMG" "$URL" --progress-bar
 
 echo "[*] Mounting $DMG..."
 MOUNT_OUTPUT=$(hdiutil attach "$DMG")
 VOLUME=$(echo "$MOUNT_OUTPUT" | grep -o '/Volumes/[^"]*')
+
+echo "[*] Mounted $DMG at $VOLUME"
 
 APP_PATH=$(find "$VOLUME" -maxdepth 1 -name "*.app" | head -n 1)
 APP_NAME=$(basename "$APP_PATH")
@@ -45,4 +47,8 @@ echo "[✓] Installed and signed $APP_NAME successfully!"
 echo "[*] Opening App..."
 open "$DEST"
 
-echo "Enjoy Hydrogen Early Access!"
+sleep 2
+
+osascript -e "tell application \"$APP_NAME\" to activate" -e "tell application \"$APP_NAME\" to set the bounds of the front window to {0, 0, (screen width), (screen height)}"
+
+echo "Enjoy Hydrogen Fixer V2 Early Access 🎉! This verison is not updated do not rely on it."
