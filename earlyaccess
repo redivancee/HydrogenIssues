@@ -2,29 +2,34 @@
 
 URL="https://files.catbox.moe/etd6fc.dmg"
 DMG="App.dmg"
-DEST="/Applications/App.app"
-
-if [ -d "$DEST" ]; then
-    echo "[!] App is already installed at /Applications."
-    open "$DEST"
-    exit 0
-fi
 
 echo "[*] Downloading $DMG..."
 curl -L -o "$DMG" "$URL"
 
 echo "[*] Mounting $DMG..."
-hdiutil mount "$DMG"
+MOUNT_OUTPUT=$(hdiutil attach "$DMG")
+VOLUME=$(echo "$MOUNT_OUTPUT" | grep -o '/Volumes/[^"]*')
 
-SOURCE="/Volumes/App/App.app"
+APP_PATH=$(find "$VOLUME" -maxdepth 1 -name "*.app" | head -n 1)
+APP_NAME=$(basename "$APP_PATH")
+DEST="/Applications/$APP_NAME"
 
-[ ! -d "$SOURCE" ] && echo "[!] App not found." && exit 1
+if [ -d "$DEST" ]; then
+    echo "[!] $APP_NAME is already installed."
+    open "$DEST"
+    exit 0
+fi
 
-echo "[*] Copying App to /Applications..."
-sudo cp -R "$SOURCE" "$DEST"
+if [ ! -d "$APP_PATH" ]; then
+    echo "[!] .app not found inside the DMG."
+    exit 1
+fi
+
+echo "[*] Copying $APP_NAME to /Applications..."
+sudo cp -R "$APP_PATH" "$DEST"
 
 echo "[*] Unmounting the disk image..."
-hdiutil unmount "/Volumes/App"
+hdiutil detach "$VOLUME"
 
 echo "[*] Removing quarantine flag..."
 sudo xattr -rd com.apple.quarantine "$DEST"
@@ -35,7 +40,7 @@ sudo codesign --deep --force --verify --verbose --sign - "$DEST"
 echo "[*] Verifying signature..."
 sudo codesign --verify --deep --strict --verbose=2 "$DEST"
 
-echo "[✓] Installed and signed App successfully!"
+echo "[✓] Installed and signed $APP_NAME successfully!"
 
 echo "[*] Opening App..."
 open "$DEST"
