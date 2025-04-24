@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="https://files.catbox.moe/etd6fc.dmg"
+URL="https://files.catbox.moe/i9l7jr.dmg"
 DMG="App.dmg"
 
 echo "[*] Downloading $DMG..."
@@ -51,4 +51,4 @@ sleep 2
 
 osascript -e "tell application \"$APP_NAME\" to activate" -e "tell application \"$APP_NAME\" to set the bounds of the front window to {0, 0, (screen width), (screen height)}"
 
-echo "Enjoy Hydrogen Fixer V2 Early Access 🎉! This verison is not updated do not rely on it."
+echo "Enjoy Hydrogen Fixer V2 🎉! Tell me how you like it or what to fix."
